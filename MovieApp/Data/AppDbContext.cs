@@ -31,7 +31,7 @@ namespace MovieApp.Data
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<ActorMovie> ActorsMovies { get; set; }
-        public DbSet<Cinema> Cinbemas { get; set; }
+        public DbSet<Cinema> Cinemas { get; set; }
         public DbSet<Producer> Producers { get; set; }
         public DbSet<Image> Images { get; set; }
 
