@@ -12,6 +12,8 @@ namespace MovieApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<ActorMovie>()
                 .HasKey(x => new { x.ActorId, x.MovieId });
 
@@ -24,8 +26,6 @@ namespace MovieApp.Data
                 .HasOne(x => x.Actor)
                 .WithMany(x => x.ActorMovies)
                 .HasForeignKey(x => x.ActorId);
-
-            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Actor> Actors { get; set; }
