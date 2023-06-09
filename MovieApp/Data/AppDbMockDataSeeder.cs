@@ -2,7 +2,6 @@
 using MovieApp.Enums;
 using MovieApp.Models;
 using System;
-using static System.Net.WebRequestMethods;
 
 namespace MovieApp.Data
 {
@@ -70,10 +69,10 @@ namespace MovieApp.Data
                 // Movies
                 if (!context.Movies.Any())
                 {
-                    var cinemas = context.Cinemas.Select(c => c).ToList();
-                    var actors = context.Actors.Select(a => a).ToList();
+                    var cinemas = context.Cinemas.ToList();
+                    var actors = context.Actors.ToList();
 
-                    var producers = context.Producers.Select(p => p.Id).ToList();
+                    var producerIds = context.Producers.Select(p => p.Id).ToList();
 
                     var genres = (Genre[])Enum.GetValues(typeof(Genre));
 
@@ -90,9 +89,15 @@ namespace MovieApp.Data
                         .RuleFor(x => x.StartDate, f => f.Date.Recent())
                         .RuleFor(x => x.EndDate, (f, x) => x.StartDate.AddDays(f.Random.Int(7, 14)))
                         .RuleFor(x => x.Genre, f => f.PickRandom(genres))
-                        .RuleFor(x => x.ProducerId, f => f.PickRandom(producers))
-                        .RuleFor(x => x.Cinemas, f => f.Random.ListItems(cinemas))
-                        .RuleFor(x => x.Actors, f => f.Random.ListItems(actors));
+                        .RuleFor(x => x.ProducerId, f => f.PickRandom(producerIds))
+                        .RuleFor(
+                            x => x.Cinemas,
+                            f => f.Random.ListItems(cinemas, f.Random.Int(1, 5))
+                        )
+                        .RuleFor(
+                            x => x.Actors,
+                            f => f.Random.ListItems(actors, f.Random.Int(2, 4))
+                        );
 
                     var mockMovies = movieFaker.Generate(50);
                     context.Movies.AddRange(mockMovies);

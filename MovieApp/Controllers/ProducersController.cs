@@ -4,26 +4,26 @@ using MovieApp.Data;
 
 namespace MovieApp.Controllers
 {
-    public class ActorsController : Controller
+    public class ProducersController : Controller
     {
         private readonly AppDbContext _context;
 
-        public ActorsController(AppDbContext context)
+        public ProducersController(AppDbContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            var data = await _context.Actors
+            var data = await _context.Producers
                 .Select(
-                    a =>
+                    p =>
                         new
                         {
-                            FullName = $"{a.FirstName} {a.LastName}",
-                            a.Biography,
-                            a.AvatarURL,
-                            MovieIds = a.Movies.Select(m => m.Id)
+                            FullName = $"{p.FirstName} {p.LastName}",
+                            p.Biography,
+                            p.AvatarURL,
+                            MovieIds = p.Movies.Select(m => m.Id)
                         }
                 )
                 .ToListAsync(cancellationToken);
