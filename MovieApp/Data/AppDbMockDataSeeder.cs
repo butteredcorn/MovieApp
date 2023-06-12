@@ -33,7 +33,7 @@ namespace MovieApp.Data
                     var cinemaFaker = new Faker<Cinema>()
                         .RuleFor(x => x.Name, f => f.Company.CompanyName())
                         .RuleFor(x => x.Description, f => f.Lorem.Paragraph())
-                        .RuleFor(x => x.LogoURL, f => $"{LogoBaseUrl}{index}");
+                        .RuleFor(x => x.LogoURL, f => $"{LogoBaseUrl}{index++}");
                     var mockCinemas = cinemaFaker.Generate(10);
                     context.Cinemas.AddRange(mockCinemas);
                 }
@@ -46,7 +46,7 @@ namespace MovieApp.Data
                         .RuleFor(x => x.FirstName, f => f.Name.FirstName())
                         .RuleFor(x => x.LastName, f => f.Name.LastName())
                         .RuleFor(x => x.Biography, f => f.Lorem.Paragraph())
-                        .RuleFor(x => x.AvatarURL, f => $"{AvatarBaseUrl}{index}");
+                        .RuleFor(x => x.AvatarURL, f => $"{AvatarBaseUrl}{index++}");
                     var mockActors = actorFaker.Generate(10);
                     context.Actors.AddRange(mockActors);
                 }
@@ -59,7 +59,7 @@ namespace MovieApp.Data
                         .RuleFor(x => x.FirstName, f => f.Name.FirstName())
                         .RuleFor(x => x.LastName, f => f.Name.LastName())
                         .RuleFor(x => x.Biography, f => f.Lorem.Paragraph())
-                        .RuleFor(x => x.AvatarURL, f => $"{AvatarBaseUrl}{index}");
+                        .RuleFor(x => x.AvatarURL, f => $"{AvatarBaseUrl}{index++}");
                     var mockProducers = producerFaker.Generate(10);
                     context.Producers.AddRange(mockProducers);
                 }
