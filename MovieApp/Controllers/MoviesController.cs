@@ -1,39 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieApp.Data;
+using MovieApp.ViewModels;
 
 namespace MovieApp.Controllers
 {
     public class MoviesController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-        public MoviesController(AppDbContext context)
+        public MoviesController(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            var data = await _context.Movies
-                .Select(
-                    m =>
-                        new
-                        {
-                            m.Title,
-                            m.Genre,
-                            m.Description,
-                            m.StartDate,
-                            m.EndDate,
-                            m.Price,
-                            Images = m.Images.Select(i => i.Url).ToList(),
-                            Movies = m.Actors.Select(a => a.Id).ToList(),
-                            Cinemas = m.Cinemas.Select(c => c.Id).ToList(),
-                        }
-                )
+            var movies = await _context.Movies
+                .Include(m => m.Images)
                 .ToListAsync(cancellationToken);
 
-            return View();
+            var movieDTOs = _mapper.Map<List<MovieDTO>>(movies);
+
+            return View(movieDTOs);
         }
     }
 }

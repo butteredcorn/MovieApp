@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MovieApp.Enums;
 using MovieApp.Models;
 using System;
@@ -8,7 +9,6 @@ namespace MovieApp.Data
     public class AppDbMockDataSeeder
     {
         private static readonly string AvatarBaseUrl = "https://i.pravatar.cc/150?u=";
-        private static readonly string LogoBaseUrl = "https://logoipsum.com/artwork/";
         private static readonly string ImageBaseUrl = "https://picsum.photos/seed/";
 
         public static void Seed(IApplicationBuilder applicationBuilder)
@@ -33,7 +33,7 @@ namespace MovieApp.Data
                     var cinemaFaker = new Faker<Cinema>()
                         .RuleFor(x => x.Name, f => f.Company.CompanyName())
                         .RuleFor(x => x.Description, f => f.Lorem.Paragraph())
-                        .RuleFor(x => x.LogoURL, f => $"{LogoBaseUrl}{index++}");
+                        .RuleFor(x => x.LogoURL, f => GetImageUrl($"logo{index++}"));
                     var mockCinemas = cinemaFaker.Generate(10);
                     context.Cinemas.AddRange(mockCinemas);
                 }
@@ -76,9 +76,10 @@ namespace MovieApp.Data
 
                     var genres = (Genre[])Enum.GetValues(typeof(Genre));
 
+                    var imageIndex = 1;
                     var imageFaker = new Faker<Image>().RuleFor(
                         x => x.Url,
-                        f => GetImageUrl(f.Random.Word())
+                        f => GetImageUrl($"movie{imageIndex++}")
                     );
 
                     var movieFaker = new Faker<Movie>()

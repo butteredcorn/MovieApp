@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MovieApp.ViewModels
 {
-    public class ActorDTO : IMapFrom<Actor>
+    public class ProducerDTO : IMapFrom<Producer>
     {
         [Display(Name = "Full Name")]
         public required string FullName { get; set; }
@@ -21,14 +21,14 @@ namespace MovieApp.ViewModels
         public void Mapping(Profile profile)
         {
             profile
-                .CreateMap<Actor, ActorDTO>()
+                .CreateMap<Producer, ProducerDTO>()
                 .ForMember(
                     dto => dto.FullName,
-                    opt => opt.MapFrom(a => $"{a.FirstName} {a.LastName}")
+                    opt => opt.MapFrom(p => $"{p.FirstName} {p.LastName}")
                 )
                 .ForMember(
                     dto => dto.MovieIds,
-                    opt => opt.MapFrom(a => a.Movies.Select(m => m.Id))
+                    opt => opt.MapFrom(p => p.Movies.Select(m => m.Id))
                 );
         }
     }
