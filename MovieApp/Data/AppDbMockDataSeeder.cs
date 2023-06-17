@@ -54,7 +54,7 @@ namespace MovieApp.Data
                 // Producers
                 if (!context.Producers.Any())
                 {
-                    var index = 1;
+                    var index = 11; // offset from above, so duplicate images avoided
                     var producerFaker = new Faker<Producer>()
                         .RuleFor(x => x.FirstName, f => f.Name.FirstName())
                         .RuleFor(x => x.LastName, f => f.Name.LastName())

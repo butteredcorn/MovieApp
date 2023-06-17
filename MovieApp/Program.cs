@@ -15,6 +15,9 @@ builder.Services.AddDbContext<AppDbContext>(
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<IActorsService, ActorsService>();
+builder.Services.AddScoped<ICinemasService, CinemasService>();
+builder.Services.AddScoped<IMoviesService, MoviesService>();
+builder.Services.AddScoped<IProducersService, ProducersService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

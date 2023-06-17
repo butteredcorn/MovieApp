@@ -1,34 +1,20 @@
-﻿using AutoMapper;
-using Bogus;
-using Bogus.Bson;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MovieApp.Data;
-using MovieApp.ViewModels;
-using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc;
+using MovieApp.Services;
 
 namespace MovieApp.Controllers
 {
     public class MoviesController : Controller
     {
-        private readonly AppDbContext _context;
-        private readonly IMapper _mapper;
+        private readonly IMoviesService _service;
 
-        public MoviesController(AppDbContext context, IMapper mapper)
+        public MoviesController(IMoviesService service)
         {
-            _context = context;
-            _mapper = mapper;
+            _service = service;
         }
 
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            var movies = await _context.Movies
-                .Include(m => m.Images)
-                .Include(m => m.Actors)
-                .Include(m => m.Cinemas)
-                .ToListAsync(cancellationToken);
-
-            var movieDTOs = _mapper.Map<List<MovieDTO>>(movies);
+            var movieDTOs = await _service.GetAll(cancellationToken);
 
             return View(movieDTOs);
         }
