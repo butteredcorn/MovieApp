@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MovieApp.AutoMapper;
 using MovieApp.Data;
+using MovieApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(
 );
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddScoped<IActorsService, ActorsService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

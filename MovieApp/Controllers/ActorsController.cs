@@ -2,27 +2,23 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieApp.Data;
+using MovieApp.Services;
 using MovieApp.ViewModels;
 
 namespace MovieApp.Controllers
 {
     public class ActorsController : Controller
     {
-        private readonly AppDbContext _context;
-        private readonly IMapper _mapper;
+        private readonly IActorsService _service;
 
-        public ActorsController(AppDbContext context, IMapper mapper)
+        public ActorsController(IActorsService service)
         {
-            _context = context;
-            _mapper = mapper;
+            _service = service;
         }
 
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            var actors = await _context.Actors.ToListAsync(cancellationToken);
-
-            var actorDTOs = _mapper.Map<List<ActorDTO>>(actors);
-
+            var actorDTOs = await _service.GetAll(cancellationToken);
             return View(actorDTOs);
         }
     }
