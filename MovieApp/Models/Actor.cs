@@ -10,6 +10,7 @@ namespace MovieApp.Models
         public string LastName { get; set; } = "";
         public string AvatarURL { get; set; } = "";
         public string Biography { get; set; } = "";
+        public string FullName => $"{FirstName} {LastName}";
 
         public virtual ICollection<Movie> Movies { get; set; } = new List<Movie>();
     }

@@ -12,6 +12,8 @@ namespace MovieApp.Models
         public string Description { get; set; } = "";
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
+        // to be even more realistic, each cinema should set the price of the movie
         public decimal Price { get; set; }
         public Genre Genre { get; set; }
 

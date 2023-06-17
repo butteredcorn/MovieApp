@@ -22,10 +22,7 @@ namespace MovieApp.ViewModels
         {
             profile
                 .CreateMap<Actor, ActorDTO>()
-                .ForMember(
-                    dto => dto.FullName,
-                    opt => opt.MapFrom(a => $"{a.FirstName} {a.LastName}")
-                )
+                .ForMember(dto => dto.FullName, opt => opt.MapFrom(a => a.FullName))
                 .ForMember(
                     dto => dto.MovieIds,
                     opt => opt.MapFrom(a => a.Movies.Select(m => m.Id))
