@@ -63,11 +63,9 @@ namespace MovieApp.Services
 
         public async Task<ActorDTO> GetById(int id, CancellationToken cancellationToken = default)
         {
-            var actor =
-                await _dbContext.Actors
-                    .Where(a => a.Id == id)
-                    .SingleOrDefaultAsync(cancellationToken)
-                ?? throw new EntityNotFoundException<Actor>();
+            var actor = await _dbContext.Actors
+                .Where(a => a.Id == id)
+                .SingleOrDefaultAsync(cancellationToken);
 
             var actorDTO = _mapper.Map<ActorDTO>(actor);
 

@@ -77,7 +77,7 @@ namespace MovieApp.Controllers
             var actor = await _service.GetById(id, cancellationToken);
             if (actor == null)
             {
-                return View("Empty");
+                return View("NotFound");
             }
             return View(actor);
         }
