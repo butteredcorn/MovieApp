@@ -1,0 +1,61 @@
+﻿@using MovieApp.ViewModels;
+@model ActorDTO
+
+@{
+    ViewData["Title"] = "Actor details";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Delete @Model.FullName</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                    <div class="form-group text-center">
+                    <img class="border-info rounded-circle" id="AvatarPreview" width="150px" />
+                </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="AvatarURL" class="control-label"></label>
+                        <input asp-for="AvatarURL" class="form-control" readonly/>
+                        <span asp-validation-for="AvatarURL" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" readonly />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" class="form-control" readonly />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label asp-for="Biography" class="control-label"></label>
+                    <textarea asp-for="Biography" class="form-control" readonly></textarea>
+                        <span asp-validation-for="Biography" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group d-flex justify-content-between">
+                        <form asp-action="Delete">
+                            <input type="hidden" asp-for="Id" />
+                            <input type="submit" value="Confirm" class="btn btn-danger" />
+                        </form>
+                    <a class="btn btn-outline-secondary" asp-action="Index">Return</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            var el = document.getElementById("AvatarPreview");
+            el.src = $("#AvatarURL").val();
+        })
+    </script>
+}

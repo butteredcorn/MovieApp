@@ -1,0 +1,65 @@
+﻿@model Actor
+
+@{
+    ViewData["Title"] = "Add a new actor";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Add a New Actor</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group text-center">
+                        <img id="AvatarPreview" />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="AvatarURL" class="control-label"></label>
+                        <input asp-for="AvatarURL" class="form-control" />
+                        <span asp-validation-for="AvatarURL" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label asp-for="Biography" class="control-label"></label>
+                        <textarea asp-for="Biography" class="form-control"></textarea>
+                        <span asp-validation-for="Biography" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group d-flex justify-content-between">
+                        <input type="submit" value="Create" class="btn btn-outline-success" />
+                        <a class="btn btn-outline-secondary" asp-action="Index">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            var el = document.getElementById("AvatarPreview");
+            el.src = $("#AvatarURL").val();
+        })
+
+        $("#AvatarURL").on("change", function () {
+            var el = document.getElementById("AvatarPreview");
+            el.src = $(this).val();
+        })
+    </script>
+}

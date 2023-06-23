@@ -8,8 +8,16 @@ namespace MovieApp.ViewModels
 {
     public class ActorDTO : IMapFrom<Actor>
     {
-        [Display(Name = "Full Name")]
+        public int Id { get; set; }
+
+        [Display(Name = "First Name")]
         public required string FullName { get; set; }
+
+        [Display(Name = "Last Name")]
+        public required string FirstName { get; set; }
+
+        [Display(Name = "Full Name")]
+        public required string LastName { get; set; }
 
         [Display(Name = "Biography")]
         public required string Biography { get; set; }
